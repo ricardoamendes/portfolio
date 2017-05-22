@@ -1,0 +1,36 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-react"
+  ],
+  "rules": {
+    "jsx-no-lambda": false,
+    "no-unused-variable": false,
+    "interface-name": [
+      false
+    ],
+    "member-access": false,
+    "object-literal-key-quotes": [
+      false
+    ],
+    "object-literal-sort-keys": false,
+    "trailing-comma": [
+      false
+    ],
+    "ordered-imports": [
+      false
+    ],
+    "no-namespace": false,
+    "jsx-no-multiline-js": false,
+    "jsx-wrap-multiline": false,
+    "max-line-length": [false],
+    "whitespace":[false],
+    "jsx-self-close": false,
+    "prefer-const": false,
+    "typedef-whitespace": [false],
+    "arrow-parens": false,
+    "no-console": [false],
+    "no-var-requires": false,
+    "jsx-no-bind": false
+  }
+}
