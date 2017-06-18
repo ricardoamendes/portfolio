@@ -1,16 +1,13 @@
 var webpack = require('webpack');
 var path = require('path');
-var envs = require('gulp-environments');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var isProd = envs.production();
-
-process.env.NODE_ENV = envs.production() ? 'production' : 'development';
+var dev = process.env.NODE_ENV == 'development';
 
 function getPlugins() {
     var plugins = [];
-    plugins.push(new webpack.EnvironmentPlugin({NODE_ENV: process.env.NODE_ENV, DEBUG: isProd}));
+    plugins.push(new webpack.EnvironmentPlugin({NODE_ENV: process.env.NODE_ENV, DEBUG: dev}));
     plugins.push(new HtmlWebpackInlineSourcePlugin());
     plugins.push(new CopyWebpackPlugin([{ from: 'list.json' }]));
     plugins.push(new HtmlWebpackPlugin({
@@ -19,7 +16,7 @@ function getPlugins() {
         inject: 'body',
         inlineSource: '.js'
     }));
-    if (isProd) {
+    if (!dev) {
         plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
         plugins.push(new webpack.optimize.UglifyJsPlugin({
             minimize: true,
