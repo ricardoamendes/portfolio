@@ -16,7 +16,7 @@ const mainStyle = {
     })
 };
 
-class Main extends React.Component <void, void> {
+class Main extends React.Component <undefined, undefined> {
     render() {
         return (
             <div className={mainStyle.root}>

@@ -1,4 +1,15 @@
 export default {
+    topbar: {
+        minHeight: 30,
+        height: 100
+    },
+    bar: {
+        height: 50
+    },
+    preloader: {
+        minHeight: 130,
+        height: 170
+    },
     spacing: {
         smallest: 2,
         smaller: 5,

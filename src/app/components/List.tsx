@@ -1,6 +1,10 @@
 import * as React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import * as csstips from "csstips";
 import { style } from "typestyle";
+
+import * as UIActionsCreator from "actions/ui";
 
 import ListItem from "./ListItem";
 const config = require( "config" );
@@ -12,12 +16,22 @@ const listStyle = {
     root: style( csstips.centerCenter, csstips.horizontal, csstips.wrap )
 };
 
+const mapStateToProps = ( { data, ui } : any ) => {
+    return { searchQuery: ui.searchQuery, items: data.list };
+};
+
+const mapDispatchToProps = ( dispatch : any ) => {
+    return {
+        UIActions: bindActionCreators( UIActionsCreator as any, dispatch )
+    };
+};
+
 export interface ListProps {
     searchQuery : string;
     items : [ any ];
 }
 
-class List extends React.Component <ListProps, void> {
+class List extends React.Component <ListProps, undefined> {
 
     render( ) {
         let { renderList } = this;
@@ -63,4 +77,4 @@ class List extends React.Component <ListProps, void> {
     }
 }
 
-export default List;
+export default connect( mapStateToProps, mapDispatchToProps )( List as any );
