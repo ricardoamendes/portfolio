@@ -31,6 +31,9 @@
     "arrow-parens": false,
     "no-console": [false],
     "no-var-requires": false,
-    "jsx-no-bind": false
+    "jsx-no-bind": false,
+    "no-this-assignment": false,
+    "no-submodule-imports": false,
+    "no-implicit-dependencies": false
   }
 }

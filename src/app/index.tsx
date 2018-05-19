@@ -2,20 +2,13 @@ import "core-js/shim";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
-
 import injectTapEventPlugin from "react-tap-event-plugin";
 import {setupPage, normalize} from "csstips";
-
-import data from "reducers/data";
-import ui from "reducers/ui";
-
+import data from "./reducers/data";
+import ui from "./reducers/ui";
 import App from "./components/App";
-
-const config = require("config");
-const ReactGA = require("react-ga");
 
 const reducers = combineReducers({
   data,
@@ -25,12 +18,6 @@ const reducers = combineReducers({
 let store = createStore(reducers,
   applyMiddleware(thunkMiddleware)
 );
-
-if (process.env.NODE_ENV === "production") {
-  ReactGA.initialize(config.analytics);
-  ReactGA.set({ page: "/index" });
-  ReactGA.pageview("/index");
-}
 
 setupPage("#app");
 normalize();

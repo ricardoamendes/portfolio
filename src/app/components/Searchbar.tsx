@@ -2,23 +2,20 @@ import React, {PropTypes} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {style} from "typestyle";
-
-import colors from "styles/colors";
-import dimens from "styles/dimens";
-
+import colors from "../styles/colors";
+import dimens from "../styles/dimens";
 import TextField from "material-ui/TextField";
-
-import * as UIActionsCreator from "actions/ui";
+import * as UIActionsCreator from "../actions/ui";
 
 const mapStateToProps = ({ui}: any) => {
     return {searchbarOpen: ui.searchbarOpen};
-}
+};
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
         UIActions: bindActionCreators(UIActionsCreator as any, dispatch)
     };
-}
+};
 
 const searchbarStyle = {
     root: style({
@@ -56,11 +53,10 @@ class Searchbar extends React.Component<TopbarProps, undefined> {
     render() {
         let {updateSearchQuery} = this;
         let {searchbarOpen} = this.props;
-        let style = searchbarOpen ? searchbarStyle.expanded : {};
         return (
             <div
                 className={searchbarStyle.root}
-                style={style}>
+                style={searchbarOpen ? searchbarStyle.expanded : {}}>
                 <TextField
                     hintText="Filter projects..."
                     underlineShow={false}

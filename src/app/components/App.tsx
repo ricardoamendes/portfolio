@@ -3,13 +3,10 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {cssRule, cssRaw} from "typestyle";
 import {MuiThemeProvider} from "material-ui/styles";
-
-import colors from "styles/colors";
-import dimens from "styles/dimens";
-
-import * as UIActionsCreator from "actions/ui";
-import * as dataActionsCreator from "actions/data";
-
+import colors from "../styles/colors";
+import dimens from "../styles/dimens";
+import * as UIActionsCreator from "../actions/ui";
+import * as dataActionsCreator from "../actions/data";
 import Topbar from "./Topbar";
 import Main from "./Main";
 import Social from "./Social";

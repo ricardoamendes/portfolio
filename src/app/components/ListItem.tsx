@@ -10,14 +10,10 @@ import {
     CardText
 } from "material-ui/Card";
 import FlatButton from "material-ui/FlatButton";
-
 import * as csstips from "csstips";
 import {style, media} from "typestyle";
-
-import colors from "styles/colors";
-import dimens from "styles/dimens";
-
-const ReactGA = require("react-ga");
+import colors from "../styles/colors";
+import dimens from "../styles/dimens";
 
 const cardStyle = {
     wrapper: style(
@@ -71,12 +67,14 @@ const cardStyle = {
             minWidth: dimens.media.small
         },    {lineHeight: dimens.font.medium})
     ),
-    loader: Object.assign(csstips.selfCenter, {
+    loader: {
+        display: "flex",
         marginLeft: "auto",
-        marginRight: "auto"
-    }),
+        marginRight: "auto"}
+    ,
     loaderWrapper: {
         display: "flex",
+        alignItems: "center" as any,
         width: "100%",
         height: dimens.preloader.height
     },
@@ -106,18 +104,16 @@ export interface ListItemProps {
 }
 
 const preloader = () => {
-    return <CircularProgress
-        innerStyle={cardStyle.loader}
-        style={cardStyle.loaderWrapper}/>;
+    return <CircularProgress innerStyle={cardStyle.loader} style={cardStyle.loaderWrapper}/>;
 };
 
 class ListItem extends React.Component <ListItemProps, undefined> {
 
     render() {
-        let { renderImage, renderTitle, renderSubTitle, renderDescription, renderActions, onCardExpanded } = this;
+        let { renderImage, renderTitle, renderSubTitle, renderDescription, renderActions } = this;
         return (
             <div className={cardStyle.wrapper}>
-                <Card className={cardStyle.root} onExpandChange={onCardExpanded.bind(this, this.props.itemClass)}>
+                <Card className={cardStyle.root}>
                     {renderImage()}
                     {renderTitle()}
                     {renderSubTitle()}
@@ -169,12 +165,6 @@ class ListItem extends React.Component <ListItemProps, undefined> {
         return <CardActions actAsExpander={true} style={cardStyle.actionsWrapper} className={cardStyle.actions}>
                     <FlatButton label="View More" labelStyle={cardStyle.actionLabel}/>
                 </CardActions>;
-    }
-
-    onCardExpanded(name: string, newExpandedState: boolean) {
-        if (process.env.NODE_ENV === "production" && newExpandedState) {
-            ReactGA.modalview(`/${name}`);
-        }
     }
 }
 

@@ -3,26 +3,24 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as csstips from "csstips";
 import { style } from "typestyle";
-
-import * as UIActionsCreator from "actions/ui";
-
+import * as UIActionsCreator from "../actions/ui";
 import ListItem from "./ListItem";
-const config = require( "config" );
+import config from "../config";
 
 const baseUrl = config.assets.baseUrl;
 const pathName = config.assets.pathName;
 
 const listStyle = {
-    root: style( csstips.centerCenter, csstips.horizontal, csstips.wrap )
+    root: style(csstips.centerCenter, csstips.horizontal, csstips.wrap)
 };
 
-const mapStateToProps = ( { data, ui } : any ) => {
+const mapStateToProps = ({ data, ui } : any) => {
     return { searchQuery: ui.searchQuery, items: data.list };
 };
 
-const mapDispatchToProps = ( dispatch : any ) => {
+const mapDispatchToProps = (dispatch : any) => {
     return {
-        UIActions: bindActionCreators( UIActionsCreator as any, dispatch )
+        UIActions: bindActionCreators(UIActionsCreator as any, dispatch)
     };
 };
 
@@ -33,17 +31,17 @@ export interface ListProps {
 
 class List extends React.Component <ListProps, undefined> {
 
-    render( ) {
+    render() {
         let { renderList } = this;
         let query = this.props.searchQuery.length ? this.props.searchQuery : "All";
-        const list = this.filterList( this.props.items, query );
+        const list = this.filterList(this.props.items, query);
         return renderList(list);
     }
 
     renderList(list: any[]) {
         return (
             <div className={listStyle.root}>
-                {list && list.map(( item, i ) => {
+                {list && list.map((item,i) => {
                     const name = item.assets[0];
                     const cover = item.assets[2];
                     return <ListItem
@@ -60,8 +58,8 @@ class List extends React.Component <ListProps, undefined> {
         );
     }
 
-    filterList( list : any[], searchQuery : string ) {
-        if ( searchQuery === "All" ) {
+    filterList(list : any[], searchQuery : string) {
+        if (searchQuery === "All") {
             return list;
         } else {
             return list.filter(item => {
@@ -69,12 +67,12 @@ class List extends React.Component <ListProps, undefined> {
                 const lDescription = item.description.toLowerCase();
                 const lSearchQuery = searchQuery.toLowerCase();
                 return lCategory
-                    .includes( lSearchQuery ) ||
+                    .includes(lSearchQuery) ||
                     lDescription
-                    .includes( lSearchQuery );
+                    .includes(lSearchQuery);
             });
         }
     }
 }
 
-export default connect( mapStateToProps, mapDispatchToProps )( List as any );
+export default connect(mapStateToProps, mapDispatchToProps)(List as any);

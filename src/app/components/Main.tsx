@@ -3,8 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as csstips from "csstips";
 import {style} from "typestyle";
-
-import dimens from "styles/dimens";
+import dimens from "../styles/dimens";
 
 import List from "./List";
 

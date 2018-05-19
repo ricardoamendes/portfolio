@@ -3,7 +3,6 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as csstips from "csstips";
 import {style} from "typestyle";
-
 import CircularProgress from "material-ui/CircularProgress";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "material-ui/svg-icons/navigation/menu";
@@ -11,17 +10,12 @@ import SearchIcon from "material-ui/svg-icons/action/search";
 import MenuItem from "material-ui/MenuItem";
 import Drawer from "material-ui/Drawer";
 import Snackbar from "material-ui/Snackbar";
-
-import * as UIActionsCreator from "actions/ui";
-
-import colors from "styles/colors";
-import dimens from "styles/dimens";
-
+import * as UIActionsCreator from "../actions/ui";
+import colors from "../styles/colors";
+import dimens from "../styles/dimens";
 import ImageLoader from "react-imageloader";
 import Searchbar from "./Searchbar";
-
-const ReactGA = require("react-ga");
-const config = require("config");
+import config from "../config";
 
 function mapStateToProps({ ui, data }: any) {
   return {
@@ -54,15 +48,16 @@ const topbarStyle = {
     },
     loader: {
         display: "flex",
+        alignItems: "center" as any,
         marginLeft: "auto",
         marginRight: "auto",
         height: dimens.preloader.minHeight
     },
-    loaderWrapper: Object.assign(
-        csstips.selfCenter, {
+    loaderWrapper: {
+        display: "flex",
         marginLeft: "auto",
         marginRight: "auto"
-    }),
+    },
     placeholder: style({
         position: "absolute",
         top: 0,
@@ -87,7 +82,7 @@ const topbarStyle = {
 };
 
 const preloader = () => {
-  return <CircularProgress innerStyle={topbarStyle.loaderWrapper} style={topbarStyle.loader}/>;
+    return <CircularProgress innerStyle={topbarStyle.loaderWrapper} style={topbarStyle.loader}/>;
 };
 
 interface UIActions {
@@ -108,22 +103,11 @@ class Topbar extends React.Component<TopbarProps, undefined> {
 
     toggleSidebar() {
         this.props.UIActions.toggleSidebar();
-        if (process.env.NODE_ENV === "production" && !this.props.sidebarOpen) {
-            ReactGA.event({
-                category: "Side Bar",
-                action: "Expanded"
-            });
-        }
+
     }
 
     toggleSearchbar() {
         this.props.UIActions.toggleSearchbar();
-        if (process.env.NODE_ENV === "production" && !this.props.searchbarOpen) {
-            ReactGA.event({
-                category: "Search Bar",
-                action: "Expanded"
-            });
-        }
     }
 
     filterData(query: any, e: any) {

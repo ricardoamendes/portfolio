@@ -3,11 +3,9 @@ import { bindActionCreators } from "redux";
 import {connect} from "react-redux";
 import * as csstips from "csstips";
 import {style, classes} from "typestyle";
-
-import * as UIActionsCreator from "actions/ui";
-
-import colors from "styles/colors";
-import dimens from "styles/dimens";
+import * as UIActionsCreator from "../actions/ui";
+import colors from "../styles/colors";
+import dimens from "../styles/dimens";
 
 import List from "./List";
 
