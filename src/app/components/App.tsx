@@ -78,14 +78,10 @@ class App extends React.Component <AppProps, AppState> {
         let topbarHeight : number;
         let topbarNewHeight : number;
         document.onscroll = () => {
-            let scrollY = window.scrollY || window.pageYOffset;
-            if (scrollY <= dimens.topbar.minHeight) {
-                this.props.UIActions.updateSocialIcons(false);
-                this.props.UIActions.updateTopbarHeight(dimens.topbar.height - scrollY);
-            } else {
-                this.props.UIActions.updateSocialIcons(true);
-                this.props.UIActions.updateTopbarHeight(dimens.topbar.height - dimens.topbar.minHeight);
-            }
+            const scrollY = window.scrollY || window.pageYOffset;
+            const exceededMinHeight = scrollY <= dimens.topbar.minHeight;
+            this.props.UIActions.updateSocialIcons(!exceededMinHeight);
+            this.props.UIActions.updateTopbarHeight(dimens.topbar.height - (exceededMinHeight ? scrollY : dimens.topbar.minHeight));
         };
         dataActions.fetchList();
     }
